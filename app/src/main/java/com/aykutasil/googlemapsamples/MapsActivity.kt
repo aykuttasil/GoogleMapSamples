@@ -23,15 +23,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
     }
 
-    /**41.0292066
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
         val fromLocLatLng = LatLng(41.0292066, 29.0444427)
@@ -51,11 +42,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         uiSettings.isCompassEnabled = false
         //uiSettings.isMapToolbarEnabled = true
 
+        mMap.isMyLocationEnabled = true
+
         mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
 
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.custom_map_style))
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(fromLocLatLng, 12f))
+
         mMap.addMarker(MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_foreground))
                 .position(fromLocLatLng)
@@ -66,8 +60,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         ButtonAnimateCamera.setOnClickListener {
             val cameraPosition = CameraPosition.builder()
                     .target(toLocLatLng)
-                    .zoom(14f)
-                    //.bearing(45f)
+                    .zoom(18f)
+                    //.bearing(130f)
                     .build()
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, null)
         }
